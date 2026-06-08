@@ -2,6 +2,7 @@
     /**
      * Affichage de Liste des articles. 
      */
+    require_once __DIR__ . '/../View.php';
 ?>
 
 <div class="articleList">

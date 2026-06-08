@@ -57,6 +57,7 @@ class DBManager
      */
     public function query(string $sql, ?array $params = null) : PDOStatement
     {
+        // var_dump('Exécution de la requête SQL.' . $sql . ' avec les paramètres : ' . json_encode($params)   );
         if ($params == null) {
             $query = $this->db->query($sql);
         } else {

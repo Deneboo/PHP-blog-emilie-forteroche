@@ -6,9 +6,11 @@
  */
  class Article extends AbstractEntity 
  {
+    // Plutot $userId que idUser pour respecter la convention de nommage des champs de la base de données.
     private int $idUser;
     private string $title = "";
     private string $content = "";
+    // Plutot $createdAt et updatedAt que dateCreation et dateUpdate pour respecter la convention de nommage des champs de la base de données.
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;  
 
