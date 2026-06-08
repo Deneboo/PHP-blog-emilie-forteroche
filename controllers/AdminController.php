@@ -77,7 +77,7 @@ class AdminController {
 
         // On connecte l'utilisateur.
         $_SESSION['user'] = $user;
-        $_SESSION['idUser'] = $user->getId();
+        $_SESSION['userId'] = $user->getId();
 
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
@@ -147,7 +147,7 @@ class AdminController {
             'id' => $id, // Si l'id vaut -1, l'article sera ajouté. Sinon, il sera modifié.
             'title' => $title,
             'content' => $content,
-            'id_user' => $_SESSION['idUser']
+            'id_user' => $_SESSION['userId']
         ]);
 
         // On ajoute l'article.

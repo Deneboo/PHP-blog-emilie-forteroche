@@ -61,7 +61,7 @@ class ArticleManager extends AbstractEntityManager
     {
         $sql = "INSERT INTO article (id_user, title, content, date_creation) VALUES (:id_user, :title, :content, NOW())";
         $this->db->query($sql, [
-            'id_user' => $article->getIdUser(),
+            'id_user' => $article->getUserId(),
             'title' => $article->getTitle(),
             'content' => $article->getContent()
         ]);
