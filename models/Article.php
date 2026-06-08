@@ -7,7 +7,7 @@
  class Article extends AbstractEntity 
  {
     // Plutot $userId que idUser pour respecter la convention de nommage des champs de la base de données.
-    private int $idUser;
+    private int $userId;
     private string $title = "";
     private string $content = "";
     // Plutot $createdAt et updatedAt que dateCreation et dateUpdate pour respecter la convention de nommage des champs de la base de données.
@@ -16,20 +16,20 @@
 
     /**
      * Setter pour l'id de l'utilisateur. 
-     * @param int $idUser
+     * @param int $userId
      */
-    public function setIdUser(int $idUser) : void 
+    public function setUserId(int $userId) : void 
     {
-        $this->idUser = $idUser;
+        $this->userId = $userId;
     }
 
     /**
      * Getter pour l'id de l'utilisateur.
      * @return int
      */
-    public function getIdUser() : int 
+    public function getUserId() : int 
     {
-        return $this->idUser;
+        return $this->userId;
     }
 
     /**
