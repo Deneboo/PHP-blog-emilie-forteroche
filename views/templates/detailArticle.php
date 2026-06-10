@@ -11,6 +11,12 @@
     <p><?= Utils::format($article->getContent()) ?></p>
 
     <div class="footer">
+        <p class="italic"><?= $article->getArticleVisitNumber() ?>
+        <?= Utils::pluralize(
+            $article->getArticleVisitNumber(),
+            'visite'
+        ) ?>
+        </p>
         <span class="info"> Publié le <?= Utils::convertDateToFrenchFormat($article->getDateCreation()) ?></span>
         <?php if ($article->getDateUpdate() != null) { ?>
             <span class="info"> Modifié le <?= Utils::convertDateToFrenchFormat($article->getDateUpdate()) ?></span>

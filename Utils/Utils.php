@@ -1,5 +1,5 @@
 <?php
-
+echo "test";
 /**
  * Classe utilitaire : cette classe ne contient que des méthodes statiques qui peuvent être appelées
  * directement sans avoir besoin d'instancier un objet Utils.
@@ -86,5 +86,28 @@ class Utils {
     {
         return $_REQUEST[$variableName] ?? $defaultValue;
     }
+    
+    /**
+     * Cette méthode permet de récupérer l'utilisateur connecté.
+     * @return ?User : l'utilisateur connecté ou null s'il n'est pas connecté.
+     */
+    public static function getConnectedUser() : ?User
+    {
+        if (isset($_SESSION['user'])) {
+            return unserialize($_SESSION['user']);
+        }
+        return null;
+    }
 
+    // utils/TextUtils.php
+
+    /**
+     * This method allows to pluralize a word based on a count
+     */
+    public static function pluralize(int $count, string $singular, string $plural = null): string
+    {
+        return $count <= 1
+            ? $singular
+            : ($plural ?? $singular . 's');
+    }
 }

@@ -2,21 +2,9 @@
 
 require_once  __DIR__ .'/config/_config.php';
 require_once  __DIR__ .'/config/autoload.php';
-require_once  __DIR__ .'/services/Utils.php';
+require_once  __DIR__ .'/utils/Utils.php';
 require_once  __DIR__ .'/controllers/ArticleController.php';
-// Vérifie la base réellement utilisée
-// $dbManager = DBManager::getInstance();
-// $pdo = $dbManager->getPDO();
-// $result = $pdo->query("SELECT DATABASE()");
-// $stmt = $pdo->query("SELECT @@hostname, @@port");
-// print_r($stmt->fetchAll());
-// echo 'Coucou MAIN : ' . $result->fetchColumn() . "Fin \n";
 
-// $articleController = new ArticleController();
-// $articleController->showHome();
-// echo "Bienvenue sur le blog de Emilie Forteroche !\n";
-// On récupère l'action demandée par l'utilisateur.
-// Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
 
 // Try catch global pour gérer les erreurs

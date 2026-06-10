@@ -129,4 +129,10 @@
     {
         return $this->dateUpdate;
     }
+
+    public function getArticleVisitNumber() : int 
+    {
+        $articleVisitManager = new ArticleVisitManager();
+        return count($articleVisitManager->getArticleVisitsByArticleId($this->getId()));
+    }
  }

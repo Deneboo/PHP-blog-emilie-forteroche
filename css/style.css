@@ -237,6 +237,12 @@ a.info {
     font-style: normal;
 }
 
+.italic {
+    font-size: 14px;
+    font-style: italic;
+    color: grey;
+}
+
 
 /* Page de détail d'un article */
 
