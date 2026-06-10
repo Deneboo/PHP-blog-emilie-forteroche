@@ -98,4 +98,16 @@ class Utils {
         }
         return null;
     }
+
+    // utils/TextUtils.php
+
+    /**
+     * This method allows to pluralize a word based on a count
+     */
+    public static function pluralize(int $count, string $singular, string $plural = null): string
+    {
+        return $count <= 1
+            ? $singular
+            : ($plural ?? $singular . 's');
+    }
 }

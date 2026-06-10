@@ -60,8 +60,8 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
+                new DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
-                $articleVisit['visit_date']
             );
         }
         return $articleVisits;
@@ -82,7 +82,7 @@ class ArticleVisitManager extends AbstractEntityManager {
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
                 $articleVisit['user_id'] ?? null,
-                $articleVisit['visit_date']
+                new DateTime($articleVisit['visit_date'])
             );
         }
         return $articleVisits;
