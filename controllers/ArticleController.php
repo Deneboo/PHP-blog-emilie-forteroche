@@ -1,5 +1,10 @@
 <?php 
 
+// require_once __DIR__ . '/../../../models/ArticleManager.php';
+// require_once __DIR__ . '/../../models/ArticleVisitManager.php';
+// require_once __DIR__ . '/../../models/CommentManager.php';
+// require_once __DIR__ . '/../../utils/Utils.php';
+
 class ArticleController 
 {
     /**
@@ -22,10 +27,25 @@ class ArticleController
     public function showArticle() : void
     {
         // Récupération de l'id de l'article demandé.
+        echo "ID de l'article demandé : " . Utils::request("id", -1) . "<br>";
         $id = Utils::request("id", -1);
+        $user = Utils::getConnectedUser() ?? null;
 
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($id);
+        $articleVisitManager = new ArticleVisitManager();
+        $hasVisited = $articleVisitManager->hasVisited(
+            $article->getId(),
+            $_SERVER['REMOTE_ADDR']
+        );
+
+        if (!$hasVisited) {
+            $articleVisitManager->addArticleVisit(
+                $article->getId(),
+                $_SERVER['REMOTE_ADDR'],
+                $user?->getId()
+            );
+        }
         
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");

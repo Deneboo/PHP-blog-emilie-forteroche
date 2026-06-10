@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/AbstractEntityManager.php';
+require_once __DIR__ . '/Article.php';
 /**
  * Classe qui gère les articles.
  */

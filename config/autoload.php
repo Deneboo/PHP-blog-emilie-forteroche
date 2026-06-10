@@ -26,5 +26,9 @@ spl_autoload_register(function($className) {
     if (file_exists('views/' . $className . '.php')) {
         require_once 'views/' . $className . '.php';
     }
+
+    if (file_exists('utils/' . $className . '.php')) {
+        require_once 'utils/' . $className . '.php';
+    }
     
 });
