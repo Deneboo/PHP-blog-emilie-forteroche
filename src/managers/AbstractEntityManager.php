@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Managers;
+use App\Managers\DBManager;
+
 /**
  * Classe abstraite qui représente un manager. Elle récupère automatiquement le gestionnaire de base de données. 
  */

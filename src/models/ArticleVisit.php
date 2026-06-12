@@ -1,25 +1,27 @@
 <?php
 
+namespace App\Models;
+
 class ArticleVisit extends AbstractEntity
 {
     private string $articleId;
     private string $ip;
     private ?string $userId;
     
-    private DateTime $visitDate;
+    private \DateTime $visitDate;
 
     /**
      * Constructeur de la classe ArticleVisit.
      * @param string $articleId : l'id de l'article visité.
      * @param string $ip : l'adresse IP du visiteur.
      * @param string|null $userId : l'id de l'utilisateur connecté, null si le visiteur n'est pas connecté.
-     * @param DateTime $visitDate : la date de la visite.
+     * @param \DateTime $visitDate : la date de la visite.
      */
-    public function __construct(string $articleId, string $ip, DateTime $visitDate, ?string $userId = null) 
+    public function __construct(string $articleId, string $ip, \DateTime $visitDate, ?string $userId = null) 
     {
         $this->articleId = $articleId;
         $this->ip = $ip;
-        $this->visitDate = $visitDate;
+        $this->visitDate = new \DateTime($visitDate->format('Y-m-d H:i:s'));
         $this->userId = $userId ?? null;
     }
 
@@ -52,7 +54,7 @@ class ArticleVisit extends AbstractEntity
 
     /**
      * Getter pour la date de la visite.
-     * @return DateTime
+     * @return \DateTime
      */
     public function getVisitDate() 
     {

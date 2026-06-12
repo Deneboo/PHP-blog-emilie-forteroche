@@ -1,11 +1,9 @@
 <?php
 
-require_once __DIR__ . '/ArticleVisit.php';
+namespace App\Managers;
 
-// This is a repository. 
-// TODO : Mettre ce code dans un dossier Repository pour respecter les bonnes pratiques.
-// TODO : Ajouter le count pour récupérer le nombre de visites d'article pour un article donné.
-// TODO : penser à ne pas ajouter une visite d'article si l'utilisateur a déjà visité l'article dans les dernières 24h.
+use App\Models\ArticleVisit;
+
 /**
  * Class for managing article visits.
  * This class allows to add a visit to an article, and to retrieve the visits of an article.
@@ -21,7 +19,7 @@ class ArticleVisitManager extends AbstractEntityManager {
      */
     public function addArticleVisit(string $articleId, string $ip, ?string $userId = null): void
     {   
-        $date = new DateTime();
+        $date = new \DateTime();
         $visit = new ArticleVisit(
             $articleId,
             $ip,
@@ -60,7 +58,7 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new DateTime($articleVisit['visit_date']),
+                new \DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
             );
         }
@@ -82,7 +80,7 @@ class ArticleVisitManager extends AbstractEntityManager {
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
                 $articleVisit['user_id'] ?? null,
-                new DateTime($articleVisit['visit_date'])
+                new \DateTime($articleVisit['visit_date'])
             );
         }
         return $articleVisits;
@@ -103,7 +101,7 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new DateTime($articleVisit['visit_date']),
+                new \DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
             );
         }
@@ -126,7 +124,7 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new DateTime($articleVisit['visit_date']),
+                new \DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null
             );
         }

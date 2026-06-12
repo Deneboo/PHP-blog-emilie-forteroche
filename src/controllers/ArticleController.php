@@ -1,9 +1,12 @@
 <?php 
 
-// require_once __DIR__ . '/../../../models/ArticleManager.php';
-// require_once __DIR__ . '/../../models/ArticleVisitManager.php';
-// require_once __DIR__ . '/../../models/CommentManager.php';
-// require_once __DIR__ . '/../../utils/Utils.php';
+namespace App\Controllers;
+
+use App\Managers\ArticleManager;
+use App\Managers\ArticleVisitManager;
+use App\Managers\CommentManager;
+use App\Views\View;
+use App\Utils\Utils;
 
 class ArticleController 
 {
@@ -48,7 +51,7 @@ class ArticleController
         }
         
         if (!$article) {
-            throw new Exception("L'article demandé n'existe pas.");
+            throw new \Exception("L'article demandé n'existe pas.");
         }
 
         $commentManager = new CommentManager();

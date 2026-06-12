@@ -2,7 +2,8 @@
     /**
      * Affichage de Liste des articles. 
      */
-    require_once __DIR__ . '/../View.php';
+
+    use App\Utils\Utils;
 ?>
 
 <div class="articleList">

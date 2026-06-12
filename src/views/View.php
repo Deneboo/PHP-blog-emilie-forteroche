@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Views;
+
 /**
  * Cette classe génère les vues en fonction de ce que chaque contrôlleur lui passe en paramètre. 
  */
@@ -14,7 +16,7 @@ class View
     /**
      * Constructeur. 
      */
-    public function __construct($title) 
+    public function __construct(string $title) 
     {
         $this->title = $title;
     }
@@ -29,7 +31,7 @@ class View
     {
         // On s'occupe de la vue envoyée
         $viewPath = $this->buildViewPath($viewName);
-        
+
         // Les deux variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
         $content = $this->_renderViewFromTemplate($viewPath, $params);
         $title = $this->title;
@@ -42,7 +44,7 @@ class View
      * Coeur de la classe, c'est ici qu'est généré ce que le controlleur a demandé. 
      * @param $viewPath : le chemin de la vue demandée par le controlleur.
      * @param array $params : les paramètres que le controlleur a envoyés à la vue.
-     * @throws Exception : si la vue n'existe pas.
+     * @throws \Exception : si la vue n'existe pas.
      * @return string : le contenu de la vue.
      */
     private function _renderViewFromTemplate(string $viewPath, array $params = []) : string
@@ -53,7 +55,7 @@ class View
             require($viewPath);
             return ob_get_clean();
         } else {
-            throw new Exception("La vue '$viewPath' est introuvable.");
+            throw new \Exception("La vue '$viewPath' est introuvable.");
         }
     }
 

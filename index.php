@@ -1,9 +1,16 @@
 <?php
 
+require __DIR__ . '/vendor/autoload.php';
 require_once  __DIR__ .'/config/_config.php';
 require_once  __DIR__ .'/config/autoload.php';
-require_once  __DIR__ .'/utils/Utils.php';
-require_once  __DIR__ .'/controllers/ArticleController.php';
+require_once  __DIR__ .'/src/utils/Utils.php';
+require_once  __DIR__ .'/src/controllers/ArticleController.php';
+
+use App\Controllers\ArticleController;
+use App\Controllers\AdminController;
+use App\Controllers\CommentController;
+use App\Views\View;
+use App\Utils\Utils;
 
 $action = Utils::request('action', 'home');
 
