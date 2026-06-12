@@ -17,12 +17,12 @@ class ArticleVisit extends AbstractEntity
      * @param string|null $userId : l'id de l'utilisateur connecté, null si le visiteur n'est pas connecté.
      * @param \DateTime $visitDate : la date de la visite.
      */
-    public function __construct(string $articleId, string $ip, \DateTime $visitDate, ?string $userId = null) 
+    public function __construct(string $articleId, string $ip, ?string $userId, \DateTime $visitDate) 
     {
         $this->articleId = $articleId;
         $this->ip = $ip;
-        $this->visitDate = new \DateTime($visitDate->format('Y-m-d H:i:s'));
         $this->userId = $userId ?? null;
+        $this->visitDate = new \DateTime($visitDate->format('Y-m-d H:i:s'));
     }
 
     /**

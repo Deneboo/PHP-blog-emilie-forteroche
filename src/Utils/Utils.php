@@ -2,6 +2,8 @@
 
 namespace App\Utils;
 
+use App\Models\User;
+
 /**
  * Classe utilitaire : cette classe ne contient que des méthodes statiques qui peuvent être appelées
  * directement sans avoir besoin d'instancier un objet Utils.
@@ -101,15 +103,13 @@ class Utils {
         return null;
     }
 
-    // utils/TextUtils.php
-
     /**
      * This method allows to pluralize a word based on a count
      */
-    public static function pluralize(int $count, string $singular, string $plural = null): string
+    public static function pluralize(int $count, string $world): string
     {
         return $count <= 1
-            ? $singular
-            : ($plural ?? $singular . 's');
+            ? $world
+            : ($world . 's');
     }
 }

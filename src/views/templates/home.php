@@ -1,9 +1,11 @@
 <?php
+
+    /** @var App\Models\Article[] $articles */
+    use App\Utils\Utils;
+    
     /**
      * Affichage de Liste des articles. 
      */
-
-    use App\Utils\Utils;
 ?>
 
 <div class="articleList">

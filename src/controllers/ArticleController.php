@@ -30,7 +30,6 @@ class ArticleController
     public function showArticle() : void
     {
         // Récupération de l'id de l'article demandé.
-        echo "ID de l'article demandé : " . Utils::request("id", -1) . "<br>";
         $id = Utils::request("id", -1);
         $user = Utils::getConnectedUser() ?? null;
 

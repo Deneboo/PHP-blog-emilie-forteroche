@@ -2,7 +2,6 @@
 
 require __DIR__ . '/vendor/autoload.php';
 require_once  __DIR__ .'/config/_config.php';
-require_once  __DIR__ .'/config/autoload.php';
 require_once  __DIR__ .'/src/utils/Utils.php';
 require_once  __DIR__ .'/src/controllers/ArticleController.php';
 

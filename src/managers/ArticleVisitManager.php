@@ -23,8 +23,8 @@ class ArticleVisitManager extends AbstractEntityManager {
         $visit = new ArticleVisit(
             $articleId,
             $ip,
-            $date,
-            $userId ?? null
+            $userId ?? null,
+            $date
         );
 
         $createTableArticleVisitSQL = "CREATE TABLE IF NOT EXISTS article_visit (
@@ -48,6 +48,11 @@ class ArticleVisitManager extends AbstractEntityManager {
         ]);
     }
 
+    /**
+     * Retrieve visits for a specific article with its id.
+     * @param string $articleId : article's id.
+     * @return array : array of ArticleVisit objects.
+     */
     public function getArticleVisitsByArticleId(string $articleId) : array 
     {
         $sql = "SELECT * FROM article_visit WHERE article_id = :article_id";
@@ -58,8 +63,8 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new \DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
+                new \DateTime($articleVisit['visit_date']),
             );
         }
         return $articleVisits;
@@ -101,8 +106,8 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new \DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
+                new \DateTime($articleVisit['visit_date']),
             );
         }
         return $articleVisits;
@@ -124,13 +129,19 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new \DateTime($articleVisit['visit_date']),
-                $articleVisit['user_id'] ?? null
+                $articleVisit['user_id'] ?? null,
+                new \DateTime($articleVisit['visit_date'])
             );
         }
         return $articleVisits;
     }
 
+    /**
+     * Check if a user has already visited an article.
+     * @param int $articleId : article's id.
+     * @param string $ip : visitor's ip.
+     * @return bool : true if the user has already visited the article, false otherwise.
+     */
     public function hasVisited(int $articleId, string $ip): bool
     {
         return (bool) $this->getArticleVisitByArticleIdAndIp($articleId, $ip);
