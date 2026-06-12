@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Managers\ArticleManager;
+use App\Models\ArticleVisit;
 use App\Managers\ArticleVisitManager;
 use App\Managers\CommentManager;
 use App\Views\View;
@@ -27,38 +28,44 @@ class ArticleController
      * Affiche le détail d'un article.
      * @return void
      */
-    public function showArticle() : void
-    {
-        // Récupération de l'id de l'article demandé.
-        $id = Utils::request("id", -1);
-        $user = Utils::getConnectedUser() ?? null;
+    public function showArticle(): void
+{
+    $id = Utils::request("id", -1);
+    $user = Utils::getConnectedUser();
 
-        $articleManager = new ArticleManager();
-        $article = $articleManager->getArticleById($id);
-        $articleVisitManager = new ArticleVisitManager();
-        $hasVisited = $articleVisitManager->hasVisited(
-            $article->getId(),
-            $_SERVER['REMOTE_ADDR']
-        );
+    $articleManager = new ArticleManager();
+    $article = $articleManager->getArticleById($id);
 
-        if (!$hasVisited) {
-            $articleVisitManager->addArticleVisit(
-                $article->getId(),
-                $_SERVER['REMOTE_ADDR'],
-                $user?->getId()
-            );
-        }
-        
-        if (!$article) {
-            throw new \Exception("L'article demandé n'existe pas.");
-        }
-
-        $commentManager = new CommentManager();
-        $comments = $commentManager->getAllCommentsByArticleId($id);
-
-        $view = new View($article->getTitle());
-        $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
+    if (!$article) {
+        throw new \Exception("L'article demandé n'existe pas.");
     }
+
+    $visitManager = new ArticleVisitManager();
+
+    $ip = $_SERVER['REMOTE_ADDR'];
+
+    $hasVisited = $visitManager->hasVisited($article->getId(), $ip);
+
+    if (!$hasVisited) {
+        $visit = new ArticleVisit([
+            'article_id' => $article->getId(),
+            'ip' => $ip,
+            'user_id' => $user?->getId(),
+            'visit_date' => new \DateTime()
+        ]);
+
+        $visitManager->addArticleVisit($visit);
+    }
+
+    $commentManager = new CommentManager();
+    $comments = $commentManager->getAllCommentsByArticleId($id);
+
+    $view = new View($article->getTitle());
+    $view->render("detailArticle", [
+        'article' => $article,
+        'comments' => $comments
+    ]);
+}
 
     /**
      * Affiche le formulaire d'ajout d'un article.

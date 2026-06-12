@@ -10,35 +10,15 @@ use App\Models\ArticleVisit;
  * It also allows to check if a user has already visited an article.
  * It uses the ArticleVisit class to represent a visit, and it uses the Database class to interact with the database.
  */
-class ArticleVisitManager extends AbstractEntityManager {
-    
-    /**
-     * Add an article visit
-     * @param ArticleVisit $articleVisit : the visit to add.
-     * @return void
-     */
-    public function addArticleVisit(string $articleId, string $ip, ?string $userId = null): void
-    {   
-        $date = new \DateTime();
-        $visit = new ArticleVisit(
-            $articleId,
-            $ip,
-            $userId ?? null,
-            $date
-        );
 
-        $createTableArticleVisitSQL = "CREATE TABLE IF NOT EXISTS article_visit (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            article_id VARCHAR(255) NOT NULL,
-            ip VARCHAR(255) NOT NULL,
-            user_id VARCHAR(255) DEFAULT NULL,
-            visit_date DATETIME NOT NULL
-        ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;";
-
-        $this->db->query($createTableArticleVisitSQL);
-
-        $sql = "INSERT INTO article_visit (article_id, ip, user_id, visit_date)
-                VALUES (:article_id, :ip, :user_id, :visit_date)";
+class ArticleVisitManager extends AbstractEntityManager
+{
+    public function addArticleVisit(ArticleVisit $visit): void
+    {
+        $sql = "INSERT INTO article_visit 
+                (article_id, ip, user_id, visit_date)
+                VALUES 
+                (:article_id, :ip, :user_id, :visit_date)";
 
         $this->db->query($sql, [
             'article_id' => $visit->getArticleId(),
@@ -48,102 +28,55 @@ class ArticleVisitManager extends AbstractEntityManager {
         ]);
     }
 
-    /**
+        /**
      * Retrieve visits for a specific article with its id.
      * @param string $articleId : article's id.
      * @return array : array of ArticleVisit objects.
      */
-    public function getArticleVisitsByArticleId(string $articleId) : array 
+    public function getArticleVisitsByArticleId(string $articleId): array
     {
         $sql = "SELECT * FROM article_visit WHERE article_id = :article_id";
         $result = $this->db->query($sql, ['article_id' => $articleId]);
-        $articleVisits = [];
 
-        while ($articleVisit = $result->fetch()) {
-            $articleVisits[] = new ArticleVisit(
-                $articleVisit['article_id'],
-                $articleVisit['ip'],
-                $articleVisit['user_id'] ?? null,
-                new \DateTime($articleVisit['visit_date']),
-            );
+        $visits = [];
+
+        while ($row = $result->fetch()) {
+            $visits[] = new ArticleVisit($row);
         }
-        return $articleVisits;
+
+        return $visits;
     }
 
-    /**
-     * Retrieve all article visits.
-     * @return array : array of ArticleVisit objects.
-     */
-    public function getAllArticleVisits() : array 
+    public function getByArticleIdAndIp(string $articleId, string $ip): array
     {
-        $sql = "SELECT * FROM article_visit";
-        $result = $this->db->query($sql);
-        $articleVisits = [];
+        $sql = "SELECT * FROM article_visit 
+                WHERE article_id = :article_id AND ip = :ip";
 
-        while ($articleVisit = $result->fetch()) {
-            $articleVisits[] = new ArticleVisit(
-                $articleVisit['article_id'],
-                $articleVisit['ip'],
-                $articleVisit['user_id'] ?? null,
-                new \DateTime($articleVisit['visit_date'])
-            );
+        $result = $this->db->query($sql, [
+            'article_id' => $articleId,
+            'ip' => $ip
+        ]);
+
+        $visits = [];
+
+        while ($row = $result->fetch()) {
+            $visits[] = new ArticleVisit($row);
         }
-        return $articleVisits;
+
+        return $visits;
     }
 
-    /**
-     * Retrieve visits for a specific article with its id.
-     * @param string $articleId : article's id.
-     * @return array : array of ArticleVisit objects.
-     */
-    public function getArticleVisitByArticleId(string $articleId) : array 
+    public function hasVisited(string $articleId, string $ip): bool
     {
-        $sql = "SELECT * FROM article_visit WHERE article_id = :article_id";
-        $result = $this->db->query($sql, ['article_id' => $articleId]);
-        $articleVisits = [];
+        $sql = "SELECT 1 FROM article_visit 
+                WHERE article_id = :article_id AND ip = :ip 
+                LIMIT 1";
 
-        while ($articleVisit = $result->fetch()) {
-            $articleVisits[] = new ArticleVisit(
-                $articleVisit['article_id'],
-                $articleVisit['ip'],
-                $articleVisit['user_id'] ?? null,
-                new \DateTime($articleVisit['visit_date']),
-            );
-        }
-        return $articleVisits;
-    }
+        $result = $this->db->query($sql, [
+            'article_id' => $articleId,
+            'ip' => $ip
+        ]);
 
-    /**
-     * Retrieve visits for a specific article with its id and visitor's ip.
-     * @param string $articleId : article's id.
-     * @param string $ip : visitor's ip.
-     * @return array : array of ArticleVisit objects.
-     */
-    public function getArticleVisitByArticleIdAndIp(string $articleId, string $ip) : array 
-    {
-        $sql = "SELECT * FROM article_visit WHERE article_id = :article_id AND ip = :ip";
-        $result = $this->db->query($sql, ['article_id' => $articleId, 'ip' => $ip]);
-        $articleVisits = [];
-
-        while ($articleVisit = $result->fetch()) {
-            $articleVisits[] = new ArticleVisit(
-                $articleVisit['article_id'],
-                $articleVisit['ip'],
-                $articleVisit['user_id'] ?? null,
-                new \DateTime($articleVisit['visit_date'])
-            );
-        }
-        return $articleVisits;
-    }
-
-    /**
-     * Check if a user has already visited an article.
-     * @param int $articleId : article's id.
-     * @param string $ip : visitor's ip.
-     * @return bool : true if the user has already visited the article, false otherwise.
-     */
-    public function hasVisited(int $articleId, string $ip): bool
-    {
-        return (bool) $this->getArticleVisitByArticleIdAndIp($articleId, $ip);
+        return (bool) $result->fetch();
     }
 }
