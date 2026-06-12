@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Models;
+
+use App\Managers\ArticleVisitManager;
+
 /**
  * Entité Article, un article est défini par les champs
  * id, id_user, title, content, date_creation, date_update
@@ -11,8 +15,8 @@
     private string $title = "";
     private string $content = "";
     // Plutot $createdAt et updatedAt que dateCreation et dateUpdate pour respecter la convention de nommage des champs de la base de données.
-    private ?DateTime $dateCreation = null;
-    private ?DateTime $dateUpdate = null;  
+    private ?\DateTime $dateCreation = null;
+    private ?\DateTime $dateUpdate = null;  
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -83,49 +87,49 @@
 
     /**
      * Setter pour la date de création. Si la date est une string, on la convertit en DateTime.
-     * @param string|DateTime $dateCreation
+     * @param string|\DateTime $dateCreation
      * @param string $format : le format pour la convertion de la date si elle est une string.
      * Par défaut, c'est le format de date mysql qui est utilisé. 
      */
-    public function setDateCreation(string|DateTime $dateCreation, string $format = 'Y-m-d H:i:s') : void 
+    public function setDateCreation(string|\DateTime $dateCreation, string $format = 'Y-m-d H:i:s') : void 
     {
         if (is_string($dateCreation)) {
-            $dateCreation = DateTime::createFromFormat($format, $dateCreation);
+            $dateCreation = \DateTime::createFromFormat($format, $dateCreation);
         }
         $this->dateCreation = $dateCreation;
     }
 
     /**
      * Getter pour la date de création.
-     * Grâce au setter, on a la garantie de récupérer un objet DateTime.
-     * @return DateTime
+     * Grâce au setter, on a la garantie de récupérer un objet \DateTime.
+     * @return \DateTime
      */
-    public function getDateCreation() : DateTime 
+    public function getDateCreation() : \DateTime 
     {
         return $this->dateCreation;
     }
 
     /**
      * Setter pour la date de mise à jour. Si la date est une string, on la convertit en DateTime.
-     * @param string|DateTime $dateUpdate
+     * @param string|\DateTime $dateUpdate
      * @param string $format : le format pour la convertion de la date si elle est une string.
      * Par défaut, c'est le format de date mysql qui est utilisé.
      */
-    public function setDateUpdate(string|DateTime $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
+    public function setDateUpdate(string|\DateTime $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
     {
         if (is_string($dateUpdate)) {
-            $dateUpdate = DateTime::createFromFormat($format, $dateUpdate);
+            $dateUpdate = \DateTime::createFromFormat($format, $dateUpdate);
         }
         $this->dateUpdate = $dateUpdate;
     }
 
     /**
      * Getter pour la date de mise à jour.
-     * Grâce au setter, on a la garantie de récupérer un objet DateTime ou null
+     * Grâce au setter, on a la garantie de récupérer un objet \DateTime ou null
      * si la date de mise à jour n'a pas été définie.
-     * @return DateTime|null
+     * @return \DateTime|null
      */
-    public function getDateUpdate() : ?DateTime 
+    public function getDateUpdate() : ?\DateTime 
     {
         return $this->dateUpdate;
     }

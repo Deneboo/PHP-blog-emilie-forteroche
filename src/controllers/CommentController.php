@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Controllers;
+
+use App\Models\Comment;
+use App\Managers\ArticleManager;
+use App\Managers\CommentManager;
+use App\Utils\Utils;
+
 class CommentController 
 {
     /**
@@ -15,14 +22,14 @@ class CommentController
 
         // On vérifie que les données sont valides.
         if (empty($pseudo) || empty($content) || empty($idArticle)) {
-            throw new Exception("Tous les champs sont obligatoires. 3");
+            throw new \Exception("Tous les champs sont obligatoires. 3");
         }
 
         // On vérifie que l'article existe.
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($idArticle);
         if (!$article) {
-            throw new Exception("L'article demandé n'existe pas.");
+            throw new \Exception("L'article demandé n'existe pas.");
         }
 
         // On crée l'objet Comment.
@@ -38,7 +45,7 @@ class CommentController
 
         // On vérifie que l'ajout a bien fonctionné.
         if (!$result) {
-            throw new Exception("Une erreur est survenue lors de l'ajout du commentaire.");
+            throw new \Exception("Une erreur est survenue lors de l'ajout du commentaire.");
         }
 
         // On redirige vers la page de l'article.

@@ -14,4 +14,7 @@ RUN docker-php-ext-configure intl \
 # Installation Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Install bash to run with : docker exec -it php-image-name bash
+RUN apk add --no-cache bash
+
 RUN rm -rf /var/cache/apk/*

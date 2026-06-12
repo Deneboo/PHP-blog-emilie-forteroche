@@ -1,11 +1,9 @@
 <?php
 
-require_once __DIR__ . '/ArticleVisit.php';
+namespace App\Managers;
 
-// This is a repository. 
-// TODO : Mettre ce code dans un dossier Repository pour respecter les bonnes pratiques.
-// TODO : Ajouter le count pour récupérer le nombre de visites d'article pour un article donné.
-// TODO : penser à ne pas ajouter une visite d'article si l'utilisateur a déjà visité l'article dans les dernières 24h.
+use App\Models\ArticleVisit;
+
 /**
  * Class for managing article visits.
  * This class allows to add a visit to an article, and to retrieve the visits of an article.
@@ -21,12 +19,12 @@ class ArticleVisitManager extends AbstractEntityManager {
      */
     public function addArticleVisit(string $articleId, string $ip, ?string $userId = null): void
     {   
-        $date = new DateTime();
+        $date = new \DateTime();
         $visit = new ArticleVisit(
             $articleId,
             $ip,
-            $date,
-            $userId ?? null
+            $userId ?? null,
+            $date
         );
 
         $createTableArticleVisitSQL = "CREATE TABLE IF NOT EXISTS article_visit (
@@ -50,6 +48,11 @@ class ArticleVisitManager extends AbstractEntityManager {
         ]);
     }
 
+    /**
+     * Retrieve visits for a specific article with its id.
+     * @param string $articleId : article's id.
+     * @return array : array of ArticleVisit objects.
+     */
     public function getArticleVisitsByArticleId(string $articleId) : array 
     {
         $sql = "SELECT * FROM article_visit WHERE article_id = :article_id";
@@ -60,8 +63,8 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
+                new \DateTime($articleVisit['visit_date']),
             );
         }
         return $articleVisits;
@@ -82,7 +85,7 @@ class ArticleVisitManager extends AbstractEntityManager {
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
                 $articleVisit['user_id'] ?? null,
-                new DateTime($articleVisit['visit_date'])
+                new \DateTime($articleVisit['visit_date'])
             );
         }
         return $articleVisits;
@@ -103,8 +106,8 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new DateTime($articleVisit['visit_date']),
                 $articleVisit['user_id'] ?? null,
+                new \DateTime($articleVisit['visit_date']),
             );
         }
         return $articleVisits;
@@ -126,13 +129,19 @@ class ArticleVisitManager extends AbstractEntityManager {
             $articleVisits[] = new ArticleVisit(
                 $articleVisit['article_id'],
                 $articleVisit['ip'],
-                new DateTime($articleVisit['visit_date']),
-                $articleVisit['user_id'] ?? null
+                $articleVisit['user_id'] ?? null,
+                new \DateTime($articleVisit['visit_date'])
             );
         }
         return $articleVisits;
     }
 
+    /**
+     * Check if a user has already visited an article.
+     * @param int $articleId : article's id.
+     * @param string $ip : visitor's ip.
+     * @return bool : true if the user has already visited the article, false otherwise.
+     */
     public function hasVisited(int $articleId, string $ip): bool
     {
         return (bool) $this->getArticleVisitByArticleIdAndIp($articleId, $ip);

@@ -1,4 +1,13 @@
 <?php 
+
+namespace App\Controllers;
+
+use App\Managers\ArticleManager;
+use App\Managers\UserManager;
+use App\Models\Article;
+use App\Utils\Utils;
+use App\Views\View;
+
 /**
  * Contrôleur de la partie admin.
  */
@@ -59,20 +68,20 @@ class AdminController {
 
         // On vérifie que les données sont valides.
         if (empty($login) || empty($password)) {
-            throw new Exception("Tous les champs sont obligatoires. 1");
+            throw new \Exception("Tous les champs sont obligatoires. 1");
         }
 
         // On vérifie que l'utilisateur existe.
         $userManager = new UserManager();
         $user = $userManager->getUserByLogin($login);
         if (!$user) {
-            throw new Exception("L'utilisateur demandé n'existe pas.");
+            throw new \Exception("L'utilisateur demandé n'existe pas.");
         }
 
         // On vérifie que le mot de passe est correct.
         if (!password_verify($password, $user->getPassword())) {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            throw new Exception("Le mot de passe est incorrect : $hash");
+            throw new \Exception("Le mot de passe est incorrect : $hash");
         }
 
         // On connecte l'utilisateur.
@@ -139,7 +148,7 @@ class AdminController {
 
         // On vérifie que les données sont valides.
         if (empty($title) || empty($content)) {
-            throw new Exception("Tous les champs sont obligatoires. 2");
+            throw new \Exception("Tous les champs sont obligatoires. 2");
         }
 
         // On crée l'objet Article.

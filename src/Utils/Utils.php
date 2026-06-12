@@ -1,5 +1,9 @@
 <?php
-echo "test";
+
+namespace App\Utils;
+
+use App\Models\User;
+
 /**
  * Classe utilitaire : cette classe ne contient que des méthodes statiques qui peuvent être appelées
  * directement sans avoir besoin d'instancier un objet Utils.
@@ -8,15 +12,15 @@ echo "test";
 class Utils {
     /**
      * Convertit une date vers le format de type "Samedi 15 juillet 2023" en francais.
-     * @param DateTime $date : la date à convertir.
+     * @param \DateTime $date : la date à convertir.
      * @return string : la date convertie.
      */
-    public static function convertDateToFrenchFormat(DateTime $date) : string
+    public static function convertDateToFrenchFormat(\DateTime $date) : string
     {
         // Attention, s'il y a un soucis lié à IntlDateFormatter c'est qu'il faut
         // activer l'extention intl_date_formater (ou intl) au niveau du serveur apache. 
         // Ca peut se faire depuis php.ini ou parfois directement depuis votre utilitaire (wamp/mamp/xamp)
-        $dateFormatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::FULL);
+        $dateFormatter = new \IntlDateFormatter('fr_FR', \IntlDateFormatter::FULL, \IntlDateFormatter::FULL);
         $dateFormatter->setPattern('EEEE d MMMM Y');
         return $dateFormatter->format($date);
     }
@@ -99,15 +103,13 @@ class Utils {
         return null;
     }
 
-    // utils/TextUtils.php
-
     /**
      * This method allows to pluralize a word based on a count
      */
-    public static function pluralize(int $count, string $singular, string $plural = null): string
+    public static function pluralize(int $count, string $world): string
     {
         return $count <= 1
-            ? $singular
-            : ($plural ?? $singular . 's');
+            ? $world
+            : ($world . 's');
     }
 }

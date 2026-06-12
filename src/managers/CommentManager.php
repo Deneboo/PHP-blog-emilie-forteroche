@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Managers;
+
+use App\Models\Comment;
+
 /**
  * Cette classe sert à gérer les commentaires. 
  */

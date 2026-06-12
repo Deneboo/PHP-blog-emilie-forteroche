@@ -1,7 +1,9 @@
 <?php
 
-require_once __DIR__ . '/AbstractEntityManager.php';
-require_once __DIR__ . '/Article.php';
+namespace App\Managers;
+
+use App\Models\Article;
+
 /**
  * Classe qui gère les articles.
  */
