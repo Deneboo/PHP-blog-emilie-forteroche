@@ -15,14 +15,14 @@ use App\Managers\ArticleVisitManager;
     private string $title = "";
     private string $content = "";
     // Plutot $createdAt et updatedAt que dateCreation et dateUpdate pour respecter la convention de nommage des champs de la base de données.
-    private ?\DateTime $dateCreation = null;
+    private \DateTime $dateCreation;
     private ?\DateTime $dateUpdate = null;  
 
     /**
      * Setter pour l'id de l'utilisateur. 
      * @param int $userId
      */
-    public function setUserId(int $userId) : void 
+    public function setIdUser(int $userId) : void 
     {
         $this->userId = $userId;
     }
@@ -115,8 +115,12 @@ use App\Managers\ArticleVisitManager;
      * @param string $format : le format pour la convertion de la date si elle est une string.
      * Par défaut, c'est le format de date mysql qui est utilisé.
      */
-    public function setDateUpdate(string|\DateTime $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
+    public function setDateUpdate(string|\DateTime|null $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
     {
+        if ($dateUpdate === null) {
+            $this->dateUpdate = null;
+            return;
+        }
         if (is_string($dateUpdate)) {
             $dateUpdate = \DateTime::createFromFormat($format, $dateUpdate);
         }

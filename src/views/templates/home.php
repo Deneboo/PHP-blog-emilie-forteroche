@@ -1,11 +1,11 @@
 <?php
+    /**
+     * Affichage de Liste des articles. 
+     */
 
     /** @var App\Models\Article[] $articles */
     use App\Utils\Utils;
     
-    /**
-     * Affichage de Liste des articles. 
-     */
 ?>
 
 <div class="articleList">

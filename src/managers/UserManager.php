@@ -2,6 +2,8 @@
 
 namespace App\Managers;
 
+use App\Models\User;
+
 /** 
  * Classe UserManager pour gérer les requêtes liées aux users et à l'authentification.
  */
