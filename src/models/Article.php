@@ -117,10 +117,6 @@ use App\Managers\ArticleVisitManager;
      */
     public function setDateUpdate(string|\DateTime|null $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
     {
-        if ($dateUpdate === null) {
-            $this->dateUpdate = null;
-            return;
-        }
         if (is_string($dateUpdate)) {
             $dateUpdate = \DateTime::createFromFormat($format, $dateUpdate);
         }
