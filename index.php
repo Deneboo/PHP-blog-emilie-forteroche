@@ -45,38 +45,43 @@ try {
 
 
         // Section admin & connexion. 
-        case 'admin': 
-            $adminController = new AdminController();
-            $adminController->showAdmin();
+        case 'admin':
+            $adminController = new AdminController('');
+            $adminController->showAdminPages('admin');
             break;
 
+        case 'dashboard':
+            $adminController = new AdminController('');
+            $adminController->showAdminPages('dashboard');
+            break; 
+
         case 'connectionForm':
-            $adminController = new AdminController();
+            $adminController = new AdminController('');
             $adminController->displayConnectionForm();
             break;
 
         case 'connectUser': 
-            $adminController = new AdminController();
+            $adminController = new AdminController('');
             $adminController->connectUser();
             break;
 
         case 'disconnectUser':
-            $adminController = new AdminController();
+            $adminController = new AdminController('');
             $adminController->disconnectUser();
             break;
 
         case 'showUpdateArticleForm':
-            $adminController = new AdminController();
+            $adminController = new AdminController('');
             $adminController->showUpdateArticleForm();
             break;
 
         case 'updateArticle': 
-            $adminController = new AdminController();
+            $adminController = new AdminController('');
             $adminController->updateArticle();
             break;
 
         case 'deleteArticle':
-            $adminController = new AdminController();
+            $adminController = new AdminController('');
             $adminController->deleteArticle();
             break;
 

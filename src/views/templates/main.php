@@ -7,13 +7,20 @@
  *      $content string : le contenu de la page. 
  */
 
+/** @var App\Models\Article[] $articles */
+/** @var App\Views\View $content */
+
+$title = $this->title;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emilie Forteroche</title>
+     <title><?= $title ?></title>
+   
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -22,11 +29,19 @@
         <nav>
             <a href="index.php">Articles</a>
             <a href="index.php?action=apropos">À propos</a>
+            
             <?php 
                 // Si on est connecté, on affiche le bouton de déconnexion, sinon, on affiche le bouton de connexion : 
                 if (isset($_SESSION['user'])) {
-                    echo '<a href="index.php?action=disconnectUser">Déconnexion</a>';
+                    echo '
+                    <a href="index.php?action=admin">Gestion des articles</a>
+                    <a href="index.php?action=dashboard">Tableau de bord</a>
+                    <a href="index.php?action=disconnectUser">Déconnexion</a>'
+                    ;
+                } else {
+                    echo '<a href="index.php?action=connectionForm">Connexion</a>';    
                 }
+                
                 ?>
         </nav>
         <h1>Emilie Forteroche</h1>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Managers\ArticleVisitManager;
+use App\Managers\CommentManager;
 
 /**
  * Entité Article, un article est défini par les champs
@@ -15,14 +16,14 @@ use App\Managers\ArticleVisitManager;
     private string $title = "";
     private string $content = "";
     // Plutot $createdAt et updatedAt que dateCreation et dateUpdate pour respecter la convention de nommage des champs de la base de données.
-    private ?\DateTime $dateCreation = null;
+    private \DateTime $dateCreation;
     private ?\DateTime $dateUpdate = null;  
 
     /**
      * Setter pour l'id de l'utilisateur. 
      * @param int $userId
      */
-    public function setUserId(int $userId) : void 
+    public function setIdUser(int $userId) : void 
     {
         $this->userId = $userId;
     }
@@ -117,10 +118,6 @@ use App\Managers\ArticleVisitManager;
      */
     public function setDateUpdate(string|\DateTime|null $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
     {
-        if ($dateUpdate === null) {
-        $this->dateUpdate = null;
-        return;
-    }
         if (is_string($dateUpdate)) {
             $dateUpdate = \DateTime::createFromFormat($format, $dateUpdate);
         }
@@ -138,6 +135,18 @@ use App\Managers\ArticleVisitManager;
         return $this->dateUpdate;
     }
 
+    /**
+     * Number of comment for an article
+     */
+    public function getCommentNumber() : int 
+    {
+        $commentManager = new CommentManager();
+        return count($commentManager->getAllCommentsByArticleId($this->getId()));
+    }
+
+    /**
+     * Visite number for an article
+     */
     public function getArticleVisitNumber() : int 
     {
         $articleVisitManager = new ArticleVisitManager();

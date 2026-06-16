@@ -313,10 +313,13 @@ a.info {
  * Partie admin
  */ 
 
-.adminArticle {
+.adminArticle,
+table
+{
     margin-bottom: 20px;
     background-color: var(--commentPaleColor);
     color: white;
+    min-width: 1000px;
 }
 
 .articleLine {
@@ -342,6 +345,17 @@ a.info {
     padding: 20px;
     border: 1px solid var(--backgroundColor);
 }
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 20px;
+    border: 1px solid var(--backgroundColor);
+}
+
+.articleLine:nth-child(even) , tr:nth-child(even) {background: var(--headerColor)}
 
 /** 
  * Footer global de la page.
