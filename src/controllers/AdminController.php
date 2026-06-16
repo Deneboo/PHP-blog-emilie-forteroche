@@ -60,7 +60,7 @@ class AdminController {
         $articles = $articleManager->getAllArticles();
 
         // On affiche la page dashboard.
-        $view = new View("Dashboard");
+        $view = new View("Tableau de bord");
         $view->render("administration/dashboard", [
             'articles' => $articles
         ]);
