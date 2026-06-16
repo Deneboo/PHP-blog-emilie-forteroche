@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Managers\ArticleVisitManager;
+use App\Managers\CommentManager;
 
 /**
  * Entité Article, un article est défini par les champs
@@ -134,6 +135,18 @@ use App\Managers\ArticleVisitManager;
         return $this->dateUpdate;
     }
 
+    /**
+     * Number of comment for an article
+     */
+    public function getCommentNumber() : int 
+    {
+        $commentManager = new CommentManager();
+        return count($commentManager->getAllCommentsByArticleId($this->getId()));
+    }
+
+    /**
+     * Visite number for an article
+     */
     public function getArticleVisitNumber() : int 
     {
         $articleVisitManager = new ArticleVisitManager();

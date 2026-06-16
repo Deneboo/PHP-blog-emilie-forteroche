@@ -29,15 +29,14 @@ class View
      */
     public function render(string $viewName, array $params = []) : void 
     {
-        // On s'occupe de la vue envoyée
         $viewPath = $this->buildViewPath($viewName);
 
-        // Les deux variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
-        $content = $this->_renderViewFromTemplate($viewPath, $params);
-        $title = $this->title;
-        ob_start();
-        require(MAIN_VIEW_PATH);
-        echo ob_get_clean();
+    $params['title'] = $this->title;
+    $params['content'] = $this->_renderViewFromTemplate($viewPath, $params);
+
+    extract($params);
+
+    require MAIN_VIEW_PATH;
     }
     
     /**

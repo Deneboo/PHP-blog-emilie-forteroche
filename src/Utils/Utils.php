@@ -112,4 +112,34 @@ class Utils {
             ? $world
             : ($world . 's');
     }
+
+    /**
+     * This method sort item according the type
+     */
+    public static function sortItems(mixed $items) {
+        $tri = $_GET['tri'] ?? '';
+        $sens = $_GET['sens'] ?? 'asc';
+
+        switch ($tri) {
+            case 'title':
+                usort($items, fn($a, $b) => $sens === 'asc' ? strcmp($a->getTitle(), $b->getTitle()) : strcmp($b->getTitle(), $a->getTitle()));
+                break;
+            case 'date_creation':
+                usort(
+                    $items,
+                    fn($a, $b) => $sens === 'asc'
+                        ? $a->getDateCreation() <=> $b->getDateCreation()
+                        : $b->getDateCreation() <=> $a->getDateCreation()
+                );
+                break;
+            case 'comment':
+                usort($items, fn($a, $b) => $sens === 'asc' ? $a->getCommentNumber() <=> $b->getCommentNumber() : $b->getCommentNumber() <=> $a->getCommentNumber());
+                break;
+            case 'article_visit':
+                usort($items, fn($a, $b) => $sens === 'asc' ? $a->getArticleVisitNumber() <=> $b->getArticleVisitNumber() : $b->getArticleVisitNumber() <=> $a->getArticleVisitNumber());
+                break;
+        }
+        return $items;
+
+    }
 }

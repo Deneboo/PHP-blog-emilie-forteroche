@@ -14,11 +14,18 @@ use App\Views\View;
  
 class AdminController {
 
+    private string $page;
+
+    public function __construct(string $page) 
+    {
+        $this->page = $page;
+    }
+
     /**
      * Affiche la page d'administration.
      * @return void
      */
-    public function showAdmin() : void
+    public function showAdminPages(string $page) : void
     {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
@@ -27,9 +34,34 @@ class AdminController {
         $articleManager = new ArticleManager();
         $articles = $articleManager->getAllArticles();
 
-        // On affiche la page d'administration.
-        $view = new View("Administration");
-        $view->render("admin", [
+        // On affiche la page d'administration qui convient au moyen d'un mapping.
+        $views = [
+            'admin' => 'administration/admin',
+            'dashboard' => 'administration/dashboard',
+        ];
+
+        if (!isset($views[$page])) {
+            throw new \Exception("Page inconnue");
+        }
+
+        $view = new View(ucfirst($page));
+        $view->render($views[$page], [
+            'articles' => $articles
+        ]);
+    }
+
+    public function showDashboard() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les articles.
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getAllArticles();
+
+        // On affiche la page dashboard.
+        $view = new View("Dashboard");
+        $view->render("administration/dashboard", [
             'articles' => $articles
         ]);
     }
