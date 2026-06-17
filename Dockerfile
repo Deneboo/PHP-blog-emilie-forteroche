@@ -3,6 +3,7 @@ FROM php:8.3-fpm-alpine
 # Dépendances système
 RUN apk add --no-cache \
     icu-dev \
+    icu-data-full \
     oniguruma-dev \
     libzip-dev \
     $PHPIZE_DEPS
