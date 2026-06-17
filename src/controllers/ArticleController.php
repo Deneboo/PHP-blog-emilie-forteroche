@@ -85,4 +85,22 @@ class ArticleController
         $view = new View("A propos");
         $view->render("apropos");
     }
+
+    /**
+     * Delete comment in article
+     * @return void
+     */
+    public function deleteComment() : void
+    {
+        $id = Utils::request("id", -1);
+
+
+        $commentManager = new CommentManager();
+        $comment= $commentManager->getCommentById($id);
+        $articleId = $comment->getIdArticle();
+        $commentManager = new CommentManager();
+        $commentManager->deleteComment($comment);
+
+        Utils::redirect("showArticle", ['id' => $articleId]);
+    }
 }

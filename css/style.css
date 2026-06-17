@@ -64,7 +64,7 @@ a {
 /**
  * Styles des formulaires.
  */
-form {
+.form {
     width: 100%;
     margin-top: 30px;
     padding: 20px;
@@ -72,34 +72,34 @@ form {
     background-color: var(--commentPaleColor);
 }
 
-form h2 {
+.form h2 {
     margin: 0 0 20px 0;
     color: white;
 }
-form label {
+.form label {
     font-weight: bold;
     font-size: 14px;
 }
 
-form input {
+.form input {
     padding: 5px;
     border: none;
 }
 
-form textarea {
+.form textarea {
     height: 150px;
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
     border: none;
 }
 
-form .formGrid {
+.form .formGrid {
     display: grid;
     grid-template-columns: 100px minmax(0, 1fr); /* Une colonne de 100px et une autre de largeur automatique */
     gap: 10px; /* Espace entre les éléments de la grille */
 }
 
-form .formGrid .submit {
+.form .formGrid .submit {
     grid-column: 2; /* Place l'élément dans la deuxième colonne (la dernière) */
     grid-row: 3; /* Place l'élément dans la troisième rangée (la dernière) */
 }
@@ -110,6 +110,13 @@ form .formGrid .submit {
     color: white;
     background-color: var(--commentColor);
     border: none;
+}
+
+.form--delete {
+    width: auto;
+    margin-top: 0;
+    padding: 0;
+    background: transparent;
 }
 
 /**

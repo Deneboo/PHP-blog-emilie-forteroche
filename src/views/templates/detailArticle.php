@@ -32,22 +32,34 @@
     <?php 
         if (empty($comments)) {
             echo '<p class="info">Aucun commentaire pour cet article.</p>';
-        } else {
-            echo '<ul>';
-            foreach ($comments as $comment) {
-                echo '<li>';
-                echo '  <div class="smiley">☻</div>';
-                echo '  <div class="detailComment">';
-                echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
-                echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
-                echo '  </div>';
-                echo '</li>';
-            }               
-            echo '</ul>';
-        } 
+        } else { ?>
+            <ul>
+                <?php 
+            foreach ($comments as $comment) { ?>
+                <li>
+                 <div class="smiley">☻</div>
+                 <div class="detailComment">
+                     <h3 class="info">Le <?=  Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) ?>  a écrit : ?></h3>
+                    <p class="content"><?=  Utils::format($comment->getContent()) ?> </p>
+                 </div>
+                    <?php if (isset($_SESSION['user'])) { ?>
+                    <form 
+                        method="post" 
+                        action="index.php?action=deleteComment" 
+                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');"
+                        class="form--delete"
+                    >
+                        <input type="hidden" name="id" value="<?= $comment->getId() ?>">
+                        <button type="submit">🗑️</button>
+                    </form>
+                    <?php } ?>
+                </li>
+            <?php }  ?>             
+            </ul>
+        <?php } 
     ?>
 
-    <form action="index.php" method="post" class="foldedCorner">
+    <form action="index.php" method="post" class="form foldedCorner">
         <h2>Commenter</h2>
 
         <div class="formComment formGrid">
