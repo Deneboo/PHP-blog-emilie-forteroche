@@ -5,7 +5,7 @@
 ?>
 
 <div class="connection-form">
-    <form action="index.php?action=connectUser" method="post" class="foldedCorner">
+    <form action="index.php?action=connectUser" method="post" class="form foldedCorner">
         <h2>Connexion</h2>
         <div class="formGrid">
             <label for="login">Login</label>

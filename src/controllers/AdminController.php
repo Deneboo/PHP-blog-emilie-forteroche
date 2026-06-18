@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Managers\ArticleManager;
 use App\Managers\UserManager;
+use App\Managers\CommentManager;
 use App\Models\Article;
 use App\Utils\Utils;
 use App\Views\View;
@@ -62,7 +63,8 @@ class AdminController {
         // On affiche la page dashboard.
         $view = new View("Tableau de bord");
         $view->render("administration/dashboard", [
-            'articles' => $articles
+
+        'articles' => $articles
         ]);
     }
 
@@ -199,7 +201,6 @@ class AdminController {
         Utils::redirect("admin");
     }
 
-
     /**
      * Suppression d'un article.
      * @return void
@@ -216,5 +217,23 @@ class AdminController {
        
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
+    }
+
+    /**
+     * Delete comment in article
+     * @return void
+     */
+    public function deleteComment() : void
+    {
+        $this->checkIfUserIsConnected();
+        $id = Utils::request("id", -1);
+
+        $commentManager = new CommentManager();
+        $comment= $commentManager->getCommentById($id);
+        $articleId = $comment->getIdArticle();
+        $commentManager = new CommentManager();
+        $commentManager->deleteComment($comment);
+
+        Utils::redirect("showArticle", ['id' => $articleId]);
     }
 }

@@ -98,7 +98,7 @@ class Utils {
     public static function getConnectedUser() : ?User
     {
         if (isset($_SESSION['user'])) {
-            return unserialize($_SESSION['user']);
+            return ($_SESSION['user']);
         }
         return null;
     }
