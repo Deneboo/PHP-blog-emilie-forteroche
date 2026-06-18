@@ -112,9 +112,9 @@ a {
     border: none;
 }
 
-.form--delete {
+.delete {
     width: auto;
-    margin-top: 0;
+    margin-top: 10px 0 0 0;
     padding: 0;
     background: transparent;
 }
@@ -230,6 +230,9 @@ article > .footer {
 }
 
 .info {
+    display: flex;
+    gap: 5px;
+    align-items: center;
     font-size: 14px;
     font-style: italic;
     font-weight: bold;
@@ -261,6 +264,9 @@ a.info {
 
 /* Affichage des commentaires */
 .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     width: 100%;
     margin-top: 30px;
 }
@@ -270,12 +276,13 @@ a.info {
 }
 
 .comments ul {
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .comments li {
     display: flex;
-    margin-bottom: 20px;
 }
 
 .comments .smiley {
@@ -287,13 +294,14 @@ a.info {
 }
 
 /* On redéfinit certaines parties du "info" pour l'affichage dans les commentaires */
-.detailComment .info {
-    margin: 5px 0 5px 0;
-    font-style: normal;
+.detailComment {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.detailComment .content {
-    margin: 5px 0 5px 0;
+.detailComment .info {
+    font-style: normal;
 }
 
 /* Page d'erreur */

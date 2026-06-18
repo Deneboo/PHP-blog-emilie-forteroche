@@ -43,12 +43,6 @@ try {
             $commentController->addComment();
             break;
 
-        case 'deleteComment':
-            $commentController = new ArticleController;
-            $commentController->deleteComment();
-            break;
-
-
         // Section admin & connexion. 
         case 'admin':
             $adminController = new AdminController('');
@@ -88,6 +82,11 @@ try {
         case 'deleteArticle':
             $adminController = new AdminController('');
             $adminController->deleteArticle();
+            break;
+            
+        case 'deleteComment':
+            $commentController = new AdminController('');
+            $commentController->deleteComment();
             break;
 
         default:

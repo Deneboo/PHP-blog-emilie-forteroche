@@ -28,33 +28,24 @@
 </article>
 
 <div class="comments">
-    <h2 class="commentsTitle">Vos Commentaires</h2>
+    <h2 class="commentsTitle" id="comment">Vos Commentaires</h2>
     <?php 
         if (empty($comments)) {
             echo '<p class="info">Aucun commentaire pour cet article.</p>';
         } else { ?>
             <ul>
-                <?php 
-            foreach ($comments as $comment) { ?>
-                <li>
-                 <div class="smiley">☻</div>
-                 <div class="detailComment">
-                     <h3 class="info">Le <?=  Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) ?>  a écrit : ?></h3>
-                    <p class="content"><?=  Utils::format($comment->getContent()) ?> </p>
-                 </div>
-                    <?php if (isset($_SESSION['user'])) { ?>
-                    <form 
-                        method="post" 
-                        action="index.php?action=deleteComment" 
-                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?');"
-                        class="form--delete"
-                    >
-                        <input type="hidden" name="id" value="<?= $comment->getId() ?>">
-                        <button type="submit">🗑️</button>
-                    </form>
-                    <?php } ?>
-                </li>
-            <?php }  ?>             
+                <?php foreach ($comments as $comment) { ?>
+                    <li>
+                        <div class="smiley">☻</div>
+                        <div class="detailComment">
+                            <h3 class="info">Le <?=  Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) ?>  a écrit : ?></h3>
+                            <p class="content"><?=  Utils::format($comment->getContent()) ?> </p>                                
+                            <?php if (isset($_SESSION['user'])) { ?>
+                                <a  class="delete" href="index.php?action=deleteComment&id=<?= $comment->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer ce commentaire ?") ?> >🗑️</a></div>
+                            <?php } ?>
+                        </div>
+                    </li>
+                <?php }  ?>             
             </ul>
         <?php } 
     ?>
