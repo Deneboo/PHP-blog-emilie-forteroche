@@ -2,6 +2,8 @@
     /**
      * Template pour afficher une page d'erreur.
      */
+
+    /** @var string $errorMessage */
 ?>
 
 <div class="error">

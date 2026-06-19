@@ -104,17 +104,22 @@ class Utils {
     }
 
     /**
-     * This method allows to pluralize a word based on a count
+     * Cette méthode permet d'ajouter un "s" au pluriel pour les count supérieurs à 1.
+     * @param int $count : le total des éléments.
+     * @param string $word : le mot à mettre au pluriel si le count est > 1.
+     * @return string $word : le mot au singulier ou au pluriel.
      */
-    public static function pluralize(int $count, string $world): string
+    public static function pluralize(int $count, string $word): string
     {
         return $count <= 1
-            ? $world
-            : ($world . 's');
+            ? $word
+            : ($word . 's');
     }
 
     /**
-     * This method sort item according the type
+     * Cette méthode tri des items selon les variables.
+     * @param mixed $items : les éléments à trier. 
+     * @return mixed $items : liste des éléments triés.
      */
     public static function sortItems(mixed $items) {
         $tri = $_GET['tri'] ?? '';
