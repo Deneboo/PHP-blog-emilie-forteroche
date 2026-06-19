@@ -6,6 +6,8 @@
 
     /** @var App\Models\Article $article */
     use App\Utils\Utils;
+
+    $visits = $article->getArticleVisitNumber()
 ?>
 
 <article class="mainArticle">
@@ -14,9 +16,9 @@
     <p><?= Utils::format($article->getContent()) ?></p>
 
     <div class="footer">
-        <p class="italic"><?= $article->getArticleVisitNumber() ?>
+        <p class="italic"><?= $visits ?>
         <?= Utils::pluralize(
-            $article->getArticleVisitNumber(),
+            $visits,
             'visite'
         ) ?>
         </p>

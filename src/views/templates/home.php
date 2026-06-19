@@ -10,6 +10,7 @@
 
 <div class="articleList">
     <?php foreach($articles as $article) { 
+        $visits = $article->getArticleVisitNumber();
         ?>
         <article class="article">
             <h2><?= $article->getTitle() ?></h2>
@@ -18,9 +19,9 @@
             
             <div class="footer">
                 <p class="italic">
-                <?= $article->getArticleVisitNumber() ?>
+                <?= $visits ?>
                 <?= Utils::pluralize(
-                    $article->getArticleVisitNumber(),
+                    $visits,
                     'visite'
                 ) ?>
                 </p>

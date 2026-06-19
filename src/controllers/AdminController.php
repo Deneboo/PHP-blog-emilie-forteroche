@@ -37,34 +37,21 @@ class AdminController {
 
         // On affiche la page d'administration qui convient au moyen d'un mapping.
         $views = [
-            'admin' => 'administration/admin',
-            'dashboard' => 'administration/dashboard',
+            'administration' => 'administration/admin',
+            'tableau de bord' => 'administration/dashboard',
         ];
 
+        // Si la page n'existe pas on affiche une page d'erreur 
         if (!isset($views[$page])) {
             throw new \Exception("Page inconnue");
         }
 
+        // On instancie la vue avec son titre de page
         $view = new View(ucfirst($page));
+
+        // On ajoute les données de la vue. Ici, les articles
         $view->render($views[$page], [
             'articles' => $articles
-        ]);
-    }
-
-    public function showDashboard() : void
-    {
-        // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
-
-        // On récupère les articles.
-        $articleManager = new ArticleManager();
-        $articles = $articleManager->getAllArticles();
-
-        // On affiche la page dashboard.
-        $view = new View("Tableau de bord");
-        $view->render("administration/dashboard", [
-
-        'articles' => $articles
         ]);
     }
 

@@ -5,10 +5,10 @@ namespace App\Managers;
 use App\Models\ArticleVisit;
 
 /**
- * Class for managing article visits.
- * This class allows to add a visit to an article, and to retrieve the visits of an article.
- * It also allows to check if a user has already visited an article.
- * It uses the ArticleVisit class to represent a visit, and it uses the Database class to interact with the database.
+ * Classe pour la gestion des visites d’articles.
+ * Cette classe permet d’ajouter une visite à un article, et de récupérer les visites d’un article.
+ * Il permet également de vérifier si un utilisateur a déjà visité un article.
+ * Il utilise la classe ArticleVisit pour représenter une visite et la classe Base de données pour interagir avec la base de données.
  */
 
 class ArticleVisitManager extends AbstractEntityManager
@@ -28,10 +28,10 @@ class ArticleVisitManager extends AbstractEntityManager
         ]);
     }
 
-        /**
-     * Retrieve visits for a specific article with its id.
-     * @param string $articleId : article's id.
-     * @return array : array of ArticleVisit objects.
+    /**
+     * Récupère les visite pour un article spécifique.
+     * @param string $articleId : id de l'article.
+     * @return array : tableau d'objets ArticleVisit.
      */
     public function getArticleVisitsByArticleId(string $articleId): array
     {
@@ -47,6 +47,12 @@ class ArticleVisitManager extends AbstractEntityManager
         return $visits;
     }
 
+    /**
+     * Récupère les visite pour un article, et un Ip spécifique.
+     * @param string $articleId : id de l'article.
+     * @param string $ip : Ip du visiteur.
+     * @return array : tableau d'objets ArticleVisit.
+     */
     public function getByArticleIdAndIp(string $articleId, string $ip): array
     {
         $sql = "SELECT * FROM article_visit 
@@ -66,6 +72,12 @@ class ArticleVisitManager extends AbstractEntityManager
         return $visits;
     }
 
+    /**
+     * Vérifie si l'article a déjà été visité delon l'ip du visiteur.
+     * @param string $articleId : id de l'article.
+     * @param string $ip : Ip du visiteur.
+     * @return bool : true si l'article a déjà été visité avec un ip spécifique sinon false.
+     */
     public function hasVisited(string $articleId, string $ip): bool
     {
         $sql = "SELECT 1 FROM article_visit 

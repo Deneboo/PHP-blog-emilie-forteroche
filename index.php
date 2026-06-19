@@ -46,12 +46,12 @@ try {
         // Section admin & connexion. 
         case 'admin':
             $adminController = new AdminController('');
-            $adminController->showAdminPages('admin');
+            $adminController->showAdminPages('administration');
             break;
 
         case 'dashboard':
             $adminController = new AdminController('');
-            $adminController->showAdminPages('dashboard');
+            $adminController->showAdminPages('tableau de bord');
             break; 
 
         case 'connectionForm':
