@@ -40,10 +40,10 @@
                     <li>
                         <div class="smiley">☻</div>
                         <div class="detailComment">
-                            <h3 class="info">Le <?=  Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) ?>  a écrit : ?></h3>
+                            <h3 class="info">Le <?=  Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) ?> a écrit : </h3>
                             <p class="content"><?=  Utils::format($comment->getContent()) ?> </p>                                
                             <?php if (isset($_SESSION['user'])) { ?>
-                                <a  class="delete" href="index.php?action=deleteComment&id=<?= $comment->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer ce commentaire ?") ?> >🗑️</a></div>
+                                <a  class="delete" href="index.php?action=deleteComment&id=<?= $comment->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer ce commentaire ?") ?> >🗑️</a>
                             <?php } ?>
                         </div>
                     </li>
