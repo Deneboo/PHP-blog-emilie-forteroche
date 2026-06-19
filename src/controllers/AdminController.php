@@ -123,7 +123,7 @@ class AdminController {
         unset($_SESSION['user']);
 
         // On redirige vers la page d'accueil.
-        Utils::redirect("site/home");
+        Utils::redirect("home");
     }
 
     /**
