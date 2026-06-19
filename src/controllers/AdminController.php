@@ -63,7 +63,7 @@ class AdminController {
     {
         // On vérifie que l'utilisateur est connecté.
         if (!isset($_SESSION['user'])) {
-            Utils::redirect("connectionForm");
+            Utils::redirect("site/connectionForm");
         }
     }
 
@@ -74,7 +74,7 @@ class AdminController {
     public function displayConnectionForm() : void 
     {
         $view = new View("Connexion");
-        $view->render("connectionForm");
+        $view->render("site/connectionForm");
     }
 
     /**
@@ -123,7 +123,7 @@ class AdminController {
         unset($_SESSION['user']);
 
         // On redirige vers la page d'accueil.
-        Utils::redirect("home");
+        Utils::redirect("site/home");
     }
 
     /**
@@ -148,7 +148,7 @@ class AdminController {
 
         // On affiche la page de modification de l'article.
         $view = new View("Edition d'un article");
-        $view->render("updateArticleForm", [
+        $view->render("administration/updateArticleForm", [
             'article' => $article
         ]);
     }

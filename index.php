@@ -95,5 +95,5 @@ try {
 } catch (Exception $e) {
     // En cas d'erreur, on affiche la page d'erreur.
     $errorView = new View('Erreur');
-    $errorView->render('errorPage', ['errorMessage' => $e->getMessage()]);
+    $errorView->render('site/errorPage', ['errorMessage' => $e->getMessage()]);
 }

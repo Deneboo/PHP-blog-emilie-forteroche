@@ -21,7 +21,7 @@ class ArticleController
         $articles = $articleManager->getAllArticles();
 
         $view = new View("Accueil");
-        $view->render("home", ['articles' => $articles]);
+        $view->render("site/home", ['articles' => $articles]);
     }
 
     /**
@@ -61,7 +61,7 @@ class ArticleController
     $comments = $commentManager->getAllCommentsByArticleId($id);
 
     $view = new View($article->getTitle());
-    $view->render("detailArticle", [
+    $view->render("site/detailArticle", [
         'article' => $article,
         'comments' => $comments
     ]);
@@ -83,6 +83,6 @@ class ArticleController
      */
     public function showApropos() {
         $view = new View("A propos");
-        $view->render("apropos");
+        $view->render("site/apropos");
     }
 }
